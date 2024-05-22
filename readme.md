@@ -114,7 +114,7 @@ Flexy goes beyond being just another POV application or inventory manager. Its u
 
     Check out a presentation of Flexy PDV on YouTube: 
 
-[![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/watch?v=your-video-id) `Click Here!!`
+[![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtu.be/7nS3Tf3hp5Q) `Click Here!!`
 
 # License 📜
 
