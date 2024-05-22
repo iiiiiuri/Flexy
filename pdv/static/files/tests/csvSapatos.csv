@@ -1,0 +1,11 @@
+codigo,nome,cor,categoria,subcategoria,preco,tamanho,estoque
+101,Sapato Social Preto,Couro Preto,Sapatos,Social,250.00,40,20
+102,Sapato Esportivo Branco,Tecido Branco,Sapatos,Esportivo,180.00,42,15
+103,Sapato Casual Marrom,Couro Marrom,Sapatos,Casual,200.00,41,25
+104,Sapato de Salto Alto Bege,Couro Bege,Sapatos,Feminino,150.00,38,30
+105,Sapato Oxford Azul,Couro Azul,Sapatos,Masculino,220.00,43,18
+106,Sapato de Trilha Verde,Tecido Verde,Sapatos,Esportivo,190.00,39,22
+107,Sapato Mocassim Vermelho,Couro Vermelho,Sapatos,Casual,170.00,37,28
+108,Sapato Ankle Boot Preto,Couro Preto,Sapatos,Feminino,200.00,36,20
+109,Sapato Derby Marrom,Couro Marrom,Sapatos,Masculino,230.00,44,17
+110,Sapato Slip On Cinza,Tecido Cinza,Sapatos,Casual,160.00,38,24

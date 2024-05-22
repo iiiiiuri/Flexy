@@ -1,0 +1,164 @@
+{% extends 'pdv/layout.html' %}
+{% load templatetags %}
+{% load static %}
+{% load components %}
+
+{% block titulo %}Alterar{% endblock titulo %}
+
+{% block corpo %}
+<main class="md:flex p-4 h-screen space-y-2 sm:space-y-0 md:space-x-2"> 
+
+    <div class="bg-flexy-200 md:w-3/4 p-2 shadow-lg w-full rounded-lg h-2/4 md:h-5/6 ">
+
+            <div class="flex items-center justify-center">
+                    {% title 'Selecione um Produto'%}
+            </div>
+
+            <div class="">
+                {% search_bar %}
+            </div>
+       
+
+            {% if produtos %}
+            <div class="h-2/3 md:h-5/6 overflow-y-auto">
+                <table id="table" class="min-w-full bg-flexy-200 shadow-md ">
+                    <thead class="hidden sm:table-header-group">
+                        <tr class="bg-gray-800 text-center text-white text-[1vw] 2xl:text-lg">
+                            <th>COD</th>
+                            <th>PRODUTO</th>
+                            <th>COR</th>
+                            <th>TAMANHOS</th>
+                            <th>CATEGORIA</th>
+                            <th>SUBCATEGORIA</th>
+                            <th>VALOR</th>
+                            {% if user.estoque %}
+                                <th>ESTOQUE</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produto in produtos %}
+                            <tr class="text-white flex flex-col sm:table-row {% if produto.estoque == 1 %}bg-yellow-600{% elif produto.estoque == 0 %}bg-red-700{%else%}bg-flexy-200{% endif %}">
+                                <td class="border-flexy-100 border sm:text-[0.9vw] p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+                                    <span class="sm:hidden">COD: </span>{{ produto.codigo }}</td>
+                                <td class="border-flexy-100 border sm:text-[0.9vw] p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+                                    <span class="sm:hidden">PRODUTO: </span>{{ produto.nome }}</td>
+                                <td class="border-flexy-100 border sm:text-[0.9vw] p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+                                    <span class="sm:hidden">COR: </span>{{ produto.cor }}</td>
+                                <td class="border-flexy-100 border sm:text-[0.9vw] p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+                                    <span class="sm:hidden">TAMANHOS: </span>{{ produto.tamanho }}</td>
+                                <td class="border-flexy-100 border sm:text-[0.9vw] p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+                                    <span class="sm:hidden">CATEGORIA: </span>{{ produto.categoria }}</td>
+                                <td class="border-flexy-100 border sm:text-[0.9vw] p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+                                    <span class="sm:hidden">SUBCATEGORIA: </span>{{ produto.subcategoria }}</td>
+                                <td class="border-flexy-100 border sm:text-[0.9vw] p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+                                    <span class="sm:hidden">VALOR: </span>{{ produto.preco }}</td>
+                                {% if user.estoque %}
+                                    <th class="border-flexy-100 border sm:text-[0.9vw] p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+                                        <span class="sm:hidden">ESTOQUE: </span>{{ produto.estoque }}</th>
+                                {% endif %}
+                                <td
+                                    class="border-flexy-100 border sm:text-[0.9vw] p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw] text-gray-900 text-center font-semibold duration-200 hover:bg-yellow-600 bg-yellow-400 cursor-pointer edit-item"
+                                    data-id="{{ produto.id }}" data-url="{% url 'itemSelecionado' produto.id %}">
+                                    <button><i class="bi bi-pencil-square"></i></button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+                {% comment %}CASO CONTRARIO EXIBE A DIV DE CADASTRO {% endcomment %}
+            {% else %}
+                <article>
+                    <div class="flex items-center justify-center mt-4 mb-4">
+                        <h1 class="text-white font-semibold text-lg italic">Nenhum Produto Cadastrado</h1>
+                    </div>
+                    <div class="flex items-center justify-center mt-4 mb-4 ">
+                        <a class="bg-flexy-green-300 p-2 rounded-full hover:bg-flexy-green-400 duration-150"
+                            href="{% url 'cadastrar'%}">Cadastrar Novo Produto</a>
+                    </div>
+                </article>
+            {% endif %}
+        </div>
+
+        {% comment %} DIV ALTERAÇÃO (DIV A ESQUERDA DA PAGINA) {% endcomment %}
+        <div class="bg-flexy-200 min-w-1/4 md:w-1/4 p-4 flex flex-col text-center w-full md:mt-6 md:h-5/6 2xl:1/5 shadow-lg rounded-lg overflow-y-auto h-2/6">
+            {%title 'Alteração'  %}
+
+            <form id="editForm" method="post" class="">
+                {% csrf_token %}
+                <input type="hidden" id="id" name="id" value="{{produtoSelecionado.id}}">
+
+                <div class="relative z-0 w-full group">
+                    <label for="codigo" class="block text-md 2xl:text-lg font-medium text-yellow-600">Código</label>
+                    <input value="{{ produtoSelecionado.codigo }}" type="number" name="codigo" id="codigo" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-yellow-400 border border-yellow-600 shadow-md w-full" placeholder=" " required disabled />
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    <label for="nome" class="block text-md 2xl:text-lg font-medium text-yellow-600">Nome</label> 
+                    <input value="{{ produtoSelecionado.nome }}" type="text" name="nome" id="nome" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-yellow-400 border border-yellow-600 shadow-md w-full" placeholder=" " required />
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    <label for="cor" class="block text-md 2xl:text-lg font-medium text-yellow-600">Cor</label>
+                    <input value="{{ produtoSelecionado.cor }}" type="text" name="cor" id="cor" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-yellow-400 border border-yellow-600 shadow-md w-full" placeholder=" " required />
+                </div>
+
+
+                <div class="relative z-0 w-full group">
+                    <label for="categoria" class="block text-md 2xl:text-lg font-medium text-yellow-600">Categoria</label>
+                    <select value="{{ produtoSelecionado.categoria }}" name="categoria" id="categoria" class="block p-1 2xl:p-2 bg-flexy-200 rounded-md text-yellow-400 border border-yellow-600 shadow-md w-full" required>
+                        <option value="" disabled selected>Categoria</option>
+                        {% for categoria in categorias %}
+                        <option value="{{categoria}}">{{categoria}}</option>
+                    {% endfor %}
+
+                    </select>
+                </div>
+    
+                <div class="relative z-0 w-full group">
+                    <label for="subcategoria" class="block text-md 2xl:text-lg font-medium text-yellow-600">Subcategoria</label>
+                    <select value="{{ produtoSelecionado.subcategoria }}" name="subcategoria" id="subcategoria" class="block p-1 2xl:p-2 bg-flexy-200 rounded-md text-yellow-400 border border-yellow-600 shadow-md w-full" required>
+                        <option value="" disabled selected>Sub-Categoria</option>
+                        {% for subcategoria in subcategorias %}
+                        <option value="{{subcategoria}}">{{subcategoria}}</option>
+                    {% endfor %}
+
+                    </select>
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    <label for="preco" class="block text-md 2xl:text-lg font-medium text-yellow-600">Preço</label>
+                    <input value="{{ produtoSelecionado.preco }}" type="number" step="0.01" name="preco" id="preco" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-yellow-400 border border-yellow-600 shadow-md w-full"/>
+                </div>
+
+                <div class="relative z-0 w-full group">
+                    <label for="preco" class="block text-md 2xl:text-lg font-medium text-yellow-600">Tamanho</label>
+                    <select value="{{ produtoSelecionado.tamanho }}" name="tamanho" id="tamanho" class="block p-1 2xl:p-2 bg-flexy-200 rounded-md text-yellow-400 border border-yellow-600 shadow-md w-full" required>
+                        <option value="" disabled selected>Tamanho</option>
+                        {% for tamanho in tamanhos %}
+                            <option value="{{tamanho}}">{{tamanho}}</option>
+                        {% endfor %}
+
+                    </select> 
+                </div>
+
+                {% if user.estoque %}
+                    <div class="relative z-0 w-full group">
+                        <label for="estoque"  class="block text-md 2xl:text-lg font-medium text-yellow-600">Estoque</label>
+                        <input value="{{ produtoSelecionado.estoque }}" type="number" name="estoque" id="estoque" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-yellow-400 border border-yellow-600 shadow-md w-full" placeholder=" " required />
+                    </div>
+                {% endif %}
+            
+        <button type="submit" class="shadow-lg mt-6 bg-yellow-500 text-white p-4 md:p-8 rounded w-full hover:bg-yellow-400 duration-150 hover:text-flexy-200 text-2xl font-semibold">Alterar</button>
+      </div>     
+     </form>
+
+
+
+
+
+  </main>
+{% endblock corpo %}
+
+

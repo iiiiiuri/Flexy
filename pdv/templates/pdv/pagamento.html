@@ -1,0 +1,41 @@
+{% extends 'pdv/layout.html' %}
+{% load templatetags %}
+{% load components %}
+
+{% block titulo %}
+  Pagamento
+{% endblock titulo %}
+
+{% block corpo %}
+  <main class="md:flex p-4 h-screen space-y-2 sm:space-y-0 md:space-x-2"> 
+
+    <div class="bg-flexy-200 md:w-3/4 p-2 shadow-lg w-full rounded-lg h-2/4 md:h-5/6 ">
+      {% venda_realizada %}
+      {% form_venda %}
+      {% form_select_vendedor request %}
+      {% title 'Selecione um Produto'%}
+      {% search_bar %}
+      {% if produtos %}
+      <div class="h-2/3 md:h-5/6 overflow-y-auto">
+        {% table_produtos request %}
+      </div>
+      {% else %}
+        {% no_results %}
+      {% endif %}
+    </div>
+
+    <div class="bg-flexy-200 min-w-1/4 md:w-1/4 p-8 flex flex-col text-center w-full md:mt-6 md:h-5/6 2xl:1/5 shadow-lg rounded-lg">
+      {% title 'Resumo de Compra' %}
+      <ul id="resumo-compra" class="text-white text-xs md:text-sm">
+      </ul>
+
+      <div class="flex flex-col justify-end items-center md:h-screen">
+        <div class="mt-4 bg-slate-600 w-full p-2 md:p-6 rounded-lg shadow-lg">
+          <h3 class=" font-bold text-white">Total:</h3>
+          <p id="total" class="text-xl font-bold text-green-500">R$ 0.00</p>
+        </div>
+        <button id="finalizar-button" class="shadow-lg mt-6 bg-green-500 text-white p-4 md:p-8 rounded w-full hover:bg-flexy-green-400 duration-150 hover:text-flexy-200 text-2xl font-semibold">Finalizar</button>
+      </div>
+    </div>
+  </main>
+{% endblock %}

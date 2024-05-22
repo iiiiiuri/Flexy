@@ -1,0 +1,141 @@
+{% load components %}
+
+<div class="w-full bg-flexy-100 rounded-md shadow  p-4 md:p-6 h-full">
+
+    <div class="flex justify-between items-start w-full">
+        <div class="flex-col items-center">
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-md bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
+                <i class="bi bi-piggy-bank-fill text-2xl text-gray-200"></i>
+            </div>
+            {% title 'Metodos de Pagamento' %}
+        </div>
+
+      </div>
+    </div>
+  
+    <div id="chart-container" class="md:h-full">
+      <div id="donut-chart"></div>
+  </div>
+    <div id="no-data-pie" class="w-full p-6 text-center hidden">
+        <i class="bi bi-exclamation-triangle-fill text-2xl text-gray-500"></i>
+        <p class="text-gray-400">Nenhum método de pagamento encontrado</p>
+    </div>
+</div>
+
+<script>
+  const getChartOptions = async () => {
+    const response = await fetch('getMetodoPagamento', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      }
+    });
+  
+    const data = await response.json();
+    const labels = Object.keys(data);
+    const series = Object.values(data);
+
+
+    if (series.length === 0) {
+        document.getElementById('donut-chart').classList.add('hidden');
+        document.getElementById('no-data-pie').classList.remove('hidden');
+        return null;
+    }
+
+    return {
+      series, // Use o array de números como a série
+      colors: ["#6BBF59", "#08A045", "#0B6E4F", "#073B3A"],
+      chart: {
+        height: "100%",
+        width: "100%",
+        type: "donut",
+      },
+      stroke: {
+        colors: ["transparent"],
+        lineCap: "",
+      },
+      plotOptions: {
+        pie: {
+          donut: {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+                fontFamily: "Inter, sans-serif",
+                offsetY: 20,
+              },
+              total: {
+                showAlways: true,
+                show: true,
+                label: "Total de Vendas",
+                fontFamily: "Inter, sans-serif",
+                formatter: function (w) {
+                  const sum = w.globals.seriesTotals.reduce((a, b) => {
+                    return a + b
+                  }, 0)
+                  return 'R$ ' + parseFloat(sum).toFixed(2) 
+                },
+              },
+              value: {
+                show: true,
+                fontFamily: "Inter, sans-serif",
+                offsetY: -20,
+                formatter: function (value) {
+                  return 'R$ ' + parseFloat(value).toFixed(2);
+                },
+              },
+            },
+            size: "80%",
+          },
+        },
+      },
+      grid: {
+        padding: {
+          top: -2,
+        },
+      },
+      labels,
+      dataLabels: {
+        enabled: false,
+      },
+      legend: {
+        position: "bottom",
+        fontFamily: "Inter, sans-serif"
+        ,
+      },
+      yaxis: {
+        labels: {
+          formatter: function (value) {
+            return 'R$ ' + value
+          },
+        },
+      },
+      xaxis: {
+        labels: {
+          formatter: function (value) {
+            return 'R$ ' + value
+          },
+        },
+        axisTicks: {
+          show: false,
+        },
+        axisBorder: {
+          show: false,
+        },
+      },
+    }
+  }
+  
+  const createChart = async () => {
+    const options = await getChartOptions();
+  
+    if (options) {
+        const chart = new ApexCharts(document.querySelector("#donut-chart"), options);
+        chart.render();
+    }
+  };
+  
+  createChart();
+</script>

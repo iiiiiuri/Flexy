@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    {% block flowbitGraph %}
+        
+    {% endblock flowbitGraph %}
+    
+
+    <title>{% block titulo %}{% endblock titulo %}</title>
+    <link rel="shortcut icon" href="{% static 'img/LOGO.png' %}" type="image/x-icon">
+</head>
+
+
+<body class="bg-pattern bg-cover dark overflow-hidden">
+    
+    <div class="flex items-center gap-2 ml-4 top-2 mb-2 bg-flexy-200 rounded-md p-1 absolute">
+        <i class="bi bi-person-circle text-white text-2xl 2xl:text-4xl"></i>
+        <div class=" dark:text-white">
+            <div>
+                <p id="" class="text-white text-md font-bold">{{user.first_name}} {{user.last_name}}</p>
+                <p id="usuario" class="text-white text-1xl hidden">{{user.username}}</p> 
+            </div>
+            <div class="text-sm text-gray-400 ">Joined in {% now "d M Y" %}</div>
+        </div>
+    </div>
+
+    <div class="mt-14">
+        {% block corpo %}
+        {% endblock corpo %}
+    </div>
+
+    <div class="fixed bottom-0 left-0 w-full h-16 bg-gradient-to-r from-flexy-green-300 to-flexy-green-400 ">
+        <div class="grid h-full max-w-lg mx-auto font-medium  {% if request.user.proprietario %}grid-cols-7{% else %}grid-cols-3{% endif %} space-x-1">
+    
+            <a href="{%url 'pagamento'%}" class="w-full h-full cursor-pointer inline-flex flex-col items-center justify-center hover:bg-flexy-green-100 duration-100">
+                <i class="bi bi-cash-coin text-2xl text-gray-900"></i>
+                <span class="text-flexy-100 hidden md:text-sm md:flex">Pagamento</span>
+            </a>
+
+            <a href="{%url 'vendas'%}" class="w-full h-full cursor-pointer inline-flex flex-col items-center justify-center hover:bg-flexy-green-100 duration-100">
+                <i class="bi bi-cart-check text-2xl text-gray-900"></i>
+                <span class="text-flexy-100 hidden md:text-sm md:flex">Vendas</span>
+            </a>
+
+            {% if request.user.proprietario %}
+            <a href="{%url 'analise'%}" class="w-full h-full cursor-pointer inline-flex flex-col items-center justify-center hover:bg-flexy-green-100 duration-100">
+                <i class="bi bi-graph-up-arrow bi bi-cart-check text-2xl text-gray-900"></i>
+                <span class="text-flexy-100 hidden md:text-sm md:flex">Analise</span>
+            </a>
+
+            <a href="{%url 'cadastrar'%}" class="w-full h-full cursor-pointer inline-flex flex-col items-center justify-center hover:bg-flexy-green-100 duration-100">
+                <i class="bi bi-plus-square text-2xl text-gray-900"></i>
+                <span class="text-flexy-100 hidden md:text-sm md:flex">Cadastrar</span>
+            </a>
+
+             <a href="{%url 'editar'%}" class="w-full h-full cursor-pointer inline-flex flex-col items-center justify-center hover:bg-flexy-green-100 duration-100">
+                <i class="bi bi-pencil-square text-2xl text-gray-900"></i>
+                <span class="text-flexy-100 hidden md:text-sm md:flex">Alterar</span>
+            </a>
+
+            <a href="{%url 'excluir'%}" class="w-full h-full cursor-pointer inline-flex flex-col items-center justify-center hover:bg-flexy-green-100 duration-100">
+                <i class="bi bi-trash text-2xl text-gray-900"></i>
+                <span class="text-flexy-100 hidden md:text-sm md:flex">Excluir</span>
+            </a>
+
+            {% endif %}
+
+            <a href="{%url 'logout'%}" class="w-full h-full cursor-pointer inline-flex flex-col items-center justify-center hover:bg-flexy-green-100 duration-100">
+                <i class="bi bi-box-arrow-right text-2xl text-gray-900"></i>
+                <span class="text-flexy-100 hidden md:text-sm md:flex">Sair</span>
+            </a>
+        </div>
+
+    </div>
+
+    <script type="module" src="{% static "js/alterarProdutoAjax.js" %}"></script>
+    <script type="module" src="{% static 'js/searchBar.js' %}"></script>
+    <script type="module" src="{% static 'js/resumoCompra.js' %}"></script>
+    <script type="module" src="{% static 'js/registrarVenda.js' %}"></script>
+    <script type="module" src="{% static 'js/uploadCsv.js' %}"></script>
+    {% block scripts %}
+
+    {% endblock scripts %}
+
+    
+
+</html>

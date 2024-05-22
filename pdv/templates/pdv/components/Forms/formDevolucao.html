@@ -1,0 +1,32 @@
+<div id="devolucao" class="hidden z-20 w-full md:w-1/2 p-4 mt-4 mb-6  border rounded-lg bg-gray-900  border-green-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+    <button id="closeButtonDevolucao" class="w-10 h-10 absolute top-0 right-0 m-2 p-2 rounded-full bg-red-500 hover:bg-red-400 hover:-translate-y-0.5 transition text-white cursor-pointer flex items-center justify-center">
+        <i class="bi bi-x-lg"></i>
+    </button>
+    <div class="flex items-center justify-center mb-2">
+        <h1 class="2xl:text-lg font-bold text-white">Gerar devolução venda: <span class="text-flexy-green-300" id="idVenda"></span></h1>
+    </div>
+
+        <div class="flex h-full w-full">
+            <!-- Inputs -->
+            <div class="flex w-full">
+                <div class="w-full pr-2">
+                    
+                    <label for="selectProdutoVenda" class="block mb-2 text-sm 2xl:text-lg font-medium text-flexy-green-300">Produto:</label>
+                    <select id="selectProdutoVenda" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 ">
+                        <option>Selecione um Produto</option>
+                    </select>
+
+                    <label class="block mb-2 text-sm 2xl:text-lg font-medium text-flexy-green-300 mt-2">Quantidade:</label>
+                    <input id="qtdProdutosNaVenda" class="w-full 2xl:text-lg p-2 2xl:p-4 rounded-lg bg-flexy-200 font-bold text-green-500" type="number">
+
+                    <label class="block mb-2 text-sm 2xl:text-lg font-medium text-flexy-green-300 mt-2">Valor:</label>
+                    <input readonly id="valorQtdSelecionada" class="select-none w-full 2xl:text-lg p-2 2xl:p-4 rounded-lg bg-flexy-200 font-bold text-green-500" type="text">
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full pl-2">
+            <hr class="border-t border-flexy-green-200 my-4">
+            <button id="handle_geradorCodigo" class="mt-2 p-2 2xl:p-4 border-2 text-green-200 border-flexy-green-300 hover:bg-flexy-green-300 hover:text-flexy-200 delay-75 rounded-md transition-all w-full text-center my-auto font-semibold text-lg">Gerar Código</button>
+        </div>
+</div>

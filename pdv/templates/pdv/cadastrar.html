@@ -1,0 +1,202 @@
+{% extends 'pdv/layout.html' %}
+{% load static %}
+{% load components %}
+
+{% block titulo %}Cadastrar{% endblock titulo %}
+
+{% block corpo %}
+    <section class="h-screen flex justify-center">
+        <div class="h-4/5 pb-2 mt-2 bg-flexy-200 bg-opacity-60 w-4/5 md:w-2/3 rounded-md px-4 shadow-lg">
+
+            {% comment %}
+            TRATATIVA DE ERROS E SUCESSOS
+            {% endcomment %}
+            {% if success %}
+                <div class="flex items-center p-4 mt-4 text-sm border rounded-lg bg-gray-800 text-green-400 border-green-800"
+                    role="alert">
+                    <div>
+                        <span class="font-medium">{{success}}</span>
+                    </div>
+                </div>
+            {% elif error %}
+                <div
+                    class="flex items-center p-4 mt-4 text-sm border rounded-lg bg-red-50 dark:bg-gray-800 text-red-400 border-red-800"
+                    role="alert">
+                    <div>
+                        <span class="font-medium">{{error}}</span>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% comment %}
+            DIV QUE CENTRALIZA E COMPORTA OS ELEMENTOS
+            {% endcomment %}
+            <div class="flex flex-col py-2 h-full">
+                <div class="flex items-center justify-center mb-4">
+                    {%title 'Cadastrar Produto'%}
+                </div>
+
+                <div class="justify-center flex space-x-2 mb-2">
+                    <a id="csv-button"    class="bg-flexy-green-400 hover:bg-flexy-green-300 hover:-translate-y-0.5 transition text-white font-bold py-2 px-4 rounded cursor-pointer">CSV</a>
+                    <a id="manual-button" class="bg-flexy-green-400 hover:bg-flexy-green-300 hover:-translate-y-0.5 transition text-white font-bold py-2 px-4 rounded cursor-pointer">MANUAL</a>
+                    
+                    
+                </div>
+                {% if ultimo_codigo %}
+                <div class="flex items-center justify-center mt-2">
+                    <h1 class="text-gray-400 font-bold text-md italic mb-2">Ultimo Código Cadastrado : 
+                        <span class="text-emerald-300">
+                            {{ultimo_codigo}}
+                        </span> 
+                    </h1>
+                </div>
+            {% endif %}
+
+
+                <div id="csv-upload" class="hidden">
+                    <form id="upload-form" class="mx-auto justify-center w-96">
+                        {% csrf_token %}
+                        <label class="block mb-2 text-sm font-medium text-white" for="csv_file">Inserir Csv</label>
+                        <div class="mb-2 file-upload p-2 rounded cursor-pointer text-gray-400 hover:text-white bg-gray-800 hover:-translate-y-0.5 delay-75 transition transform border-1 focus:outline-none">
+                            <button type="button" class="upload-button" onclick="triggerFileSelect('csv_file')">
+                                <i class="bi bi-file-earmark-image"></i>
+                            </button>
+                            <input required accept=".csv" id="csv_file" name="file" type="file" class="file-input hidden">
+                            <span class="file-name">CSV File</span>
+                        </div>
+                        <button type="submit" class="justify-center bg-flexy-green-400 hover:bg-flexy-green-300 hover:-translate-y-0.5 transition text-white font-bold py-2 px-4 rounded cursor-pointer">Upload</button>
+                    </form>
+                </div>
+
+
+
+                <form class="flex flex-col h-4/5 mx-auto w-full overflow-auto" method="POST" action="{%url 'cadastrar'%}">
+                    {% csrf_token %}
+
+                    <div id="manual" class="hidden">
+
+
+                    <div class="md:flex my-2 p-1 w-full md:space-x-2">
+                            <div class="w-full group  ">
+                                <div>
+                                    <label for="codigo" class="block text-md 2xl:text-lg font-medium text-green-600">Código</label>
+                                </div>
+
+                                <div>
+                                    <input placeholder="0000" type="number" name="codigo" id="codigo" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-green-400 border border-green-600 shadow-md w-full" />
+                                </div>
+                            </div>
+
+                            <div class="w-full group">
+                                <div>
+                                    <label for="nome" class="block text-md 2xl:text-lg font-medium text-green-600">Nome</label>
+                                </div>
+
+                                <div>
+                                    <input placeholder="Nome do Produto" type="text" name="nome" id="nome" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-green-400 border border-green-600 shadow-md w-full"/>
+                                </div>
+                                
+                            </div>
+
+
+                            <div class="w-full group  ">
+                                <div>
+                                    <label for="cor"class="block text-md 2xl:text-lg font-medium text-green-600">Cor</label>
+                                </div>
+                                
+                                <div>
+                                    <input placeholder="Azul, Amarelo, Vermelho..." type="text" name="cor" id="cor" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-green-400 border border-green-600 shadow-md w-full"/>
+                                </div>
+                                
+                            </div>
+                    </div>
+
+                    <div class="md:flex my-2 p-1 w-full md:space-x-2">
+                                <div class="w-full group">
+                                    <div>
+                                        <label for="categoria" class="block text-md 2xl:text-lg font-medium text-green-600">Categoria</label>
+                                    </div>
+                
+                                    <div>
+                                        <select name="categoria" id="categoria" class="block p-1 2xl:p-2 bg-flexy-200 rounded-md text-green-400 border border-green-600 shadow-md w-full" required>
+                                            <option class=" " disabled selected>Categoria</option>
+                                            {% for categoria in categorias %}
+                                            <option class="" value="{{categoria}}">{{categoria}}</option>
+                                        {% endfor %}
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="w-full group">
+                                    <div>
+                                        <label for="subcategoria" class="block text-md 2xl:text-lg font-medium text-green-600">Subcategoria</label>
+                                    </div>
+                    
+                                    <div>
+                                        <select name="subcategoria" id="subcategoria" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-green-400 border border-green-600 shadow-md w-full" required>
+                                            <option class="" disabled selected>Subcategoria</option>
+                                            {% for subcategoria in subcategorias %}
+                                                <option class="" value="{{subcategoria}}">{{subcategoria}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                
+                                <div class="w-full group">
+                                    <div>
+                                        <label for="estoque" class="block text-md 2xl:text-lg font-medium text-green-600">Tamanhos</label>
+                                    </div>
+        
+                                    <div>
+                                        <select name="tamanho" id="tamanho"  class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-green-400 border border-green-600 shadow-md w-full" required>
+                                            <option class="" disabled selected>Tamanho</option>
+            
+                                            {% for tamanho in tamanhos %}
+                                                <option class="" value="{{tamanho}}">{{tamanho}}</option>
+                                            {% endfor %}
+            
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                    </div>
+
+
+                    <div class="md:flex my-2 p-1 w-full md:space-x-2">
+                        <div class="w-full group">
+                            <div>
+                                <label for="preco" class="block text-md 2xl:text-lg font-medium text-green-600">Preço</label>
+                            </div>
+                   
+                            <div>
+                                <input placeholder="0.0" type="number" name="preco" id="preco" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-green-400 border border-green-600 shadow-md w-full" placeholder=" " required />
+                            </div>
+           
+                        </div>
+
+
+
+                        <div class="w-full group">
+                            <div>
+                                <label for="estoque" class="block text-md 2xl:text-lg font-medium text-green-600">Estoque</label>
+                            </div>
+
+                            <div>
+                                <input placeholder="0" type="number" name="estoque" id="estoque" class="p-1 2xl:p-2 bg-flexy-200 rounded-md text-green-400 border border-green-600 shadow-md w-full" placeholder=" " required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center md:h-2/3">
+                        <button type="submit" class="mt-auto bg-green-500 text-white p-4 rounded w-2/4 hover:bg-flexy-green-400 duration-150 hover:text-flexy-200 text-2xl font-semibold">Cadastrar</button>               
+                    </div> 
+                    </form>
+
+            </div>
+        </div>
+    </section>
+{% endblock corpo%}

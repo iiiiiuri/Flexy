@@ -1,0 +1,11 @@
+codigo,nome,cor,categoria,subcategoria,preco,tamanho,estoque
+001,Perfume Floratta Blue,Fragrância Azul,Perfumes,Feminino,150.00,100ml,50
+002,Perfume Malbec Gold,Fragrância Dourada,Perfumes,Masculino,200.00,100ml,30
+003,Perfume Elysée Nuit,Fragrância Noturna,Perfumes,Feminino,180.00,75ml,40
+004,Perfume Quasar Surf,Fragrância Fresca,Perfumes,Masculino,120.00,100ml,60
+005,Perfume Lily Divine,Fragrância Divina,Perfumes,Feminino,220.00,50ml,20
+006,Perfume Arbo Urbano,Fragrância Urbana,Perfumes,Masculino,110.00,75ml,70
+007,Perfume Glamour Just Shine,Fragrância Brilhante,Perfumes,Feminino,190.00,100ml,45
+008,Perfume Malbec Noir,Fragrância Noturna,Perfumes,Masculino,210.00,50ml,25
+009,Perfume Floratta Rose,Fragrância Rosada,Perfumes,Feminino,130.00,75ml,55
+010,Perfume Quasar Fire,Fragrância Calorosa,Perfumes,Masculino,140.00,100ml,35

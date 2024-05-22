@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+    <link rel="shortcut icon" href="{% static 'img/LOGO.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <section class="bg-gray-900 dark:bg-gray-900 h-screen flex items-center justify-center">
+
+        <div class="flex flex-col items-center px-6 py-8 mx-auto bg-gray-900 rounded-lg max-w-md xl:p-0">
+            {% if error %}
+            <div class="p-4 mb-6 text-sm rounded-lg bg-gray-800 text-red-400" role="alert">
+                <span class="font-medium">Usuario ou Senha Incorretos</span>
+            </div>
+            {% endif %}
+            <p href="#" class="flex items-center mb-6 text-4xl font-semibold text-green-400">
+                <img class="mr-3" src="{% static "img/LOGO.png" %}" alt="logo">
+                Flexy
+            </p>
+            <div class="w-full bg-gray-900 rounded-lg sm:max-w-md">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 class="text-sm font-light leading-tight tracking-tight text-green-400 md:text-2xl">
+                        Faça login para sincronizar seu conteúdo
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" action="{%url 'login'%}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <label for="text" class="block mb-2 text-sm font-medium text-green-400">Usuário</label>
+                            <input type="text" name="usuario" id="us"
+                                class="outline-none bg-gray-800 border border-gray-600 text-green-400 sm:text-sm rounded-lg focus:ring-green-400 focus:border-green-400 block w-full p-2.5"
+                                placeholder="User" required="">
+                        </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-green-400">Senha</label>
+                            <input type="password" name="senha" id="password" placeholder="•••••"
+                                class="outline-none bg-gray-800 border border-gray-600 text-green-400 sm:text-sm rounded-lg focus:ring-green-400 focus:border-green-400 block w-full p-2.5"
+                                required="">
+                        </div>
+
+                        <button type="submit"
+                            class="w-full text-green-300 bg-gray-700 shadow-lg hover:text-gray-700 hover:bg-green-500 transition-all focus:ring-4 focus:outline-none focus:ring-green-400 rounded-lg text-lg font-bold px-5 py-2.5 text-center">Sign
+                            in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

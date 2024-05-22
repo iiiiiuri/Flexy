@@ -1,0 +1,51 @@
+{% extends 'pdv/layout.html' %}
+{% load components %}
+{% load static %}
+
+{% block titulo %}Caixa{% endblock titulo %}
+
+{% block corpo %}
+<section class="h-screen flex justify-center">
+    <div class="h-5/6 bg-flexy-200 md:w-9/12 rounded-3xl px-4 mt-10 shadow-lg w-11/12 ">
+        {% title 'Caixa'%}
+        <div class="h-full space-y-10">
+            <div class="h-2/5">
+                <div>
+                    <span class="text-lg font-bold text-white">Abertura</span>
+                </div>
+                <div class="bg-flexy-100 bg-opacity-10 w-full h-full border-flexy-green-50 border-2 rounded-md p-2 flex flex-col items-center justify-center">
+                    <div class="mb-4 w-2/5">
+                        <label for="user" class="block text-gray-200 text-sm font-bold mb-2">Usuário que abriu o caixa:</label>
+                        <input type="text" id="user" name="user" class="text-gray-50 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700">
+                    </div>
+                    <div class="mb-4 w-2/5">
+                        <label for="time" class="block text-gray-200 text-sm font-bold mb-2">Hora que foi aberto:</label>
+                        <input type="time" id="time" name="time" class="text-gray-50 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700">
+                    </div>
+                    <div class="mb-4 w-2/5">
+                        <label for="date" class="block text-gray-200 text-sm font-bold mb-2">Dia:</label>
+                        <input type="date" id="date" name="date" class="text-gray-50 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700">
+                    </div>
+                    <div class="w-2/5">
+                        <button type="submit" class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Abrir caixa</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-2/5">
+                <div>
+                    <span class="text-lg font-bold text-white justify-end flex">Fechamento</span>
+                    </div>
+                        <div class="bg-flexy-100 w-full h-full border-flexy-green-50 border-2 rounded-md">
+                            
+                        </div>
+                </div>
+
+            </div>
+                
+        </div>
+
+
+
+</section> 
+{% endblock corpo %}

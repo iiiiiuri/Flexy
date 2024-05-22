@@ -1,0 +1,27 @@
+{% extends 'pdv/layout.html' %}
+{% load components %}
+{% load static %}
+
+{% block titulo %}Produtos Vendidos{% endblock titulo %}
+
+{% block corpo %}
+<section class="h-screen flex justify-center">
+        <div class="bg-black fixed w-screen h-screen z-10 bg-opacity-50 hidden" id="overlay"></div>
+            <div class="h-4/5 bg-flexy-200 md:w-9/12 rounded-md px-4 shadow-lg w-11/12 pt-2 mt-2">
+                    {% title 'Registros de Produtos Vendidos'%}
+                    {% form_devolucao %}
+
+                <div class="flex justify-center mt-4 overflow-y-auto">
+                    <div class="h-[580px] md:h-5/6 ">
+                            {% table_vendas request %}
+                    </div>
+                </div>
+            </div> 
+        </div>
+</section>
+
+{% endblock corpo %}
+
+{% block scripts %}
+<script type="module" src="{% static 'js/editVenda.js' %}"></script>
+{% endblock scripts %}

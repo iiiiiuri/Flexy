@@ -1,0 +1,62 @@
+<div id="finalizarCompraUm" class="flex fixed inset-0 items-center justify-center bg-black bg-opacity-60 z-10 hidden">
+  <div class="relative flex h-3/6">
+    <button id="closeButton" class="w-10 h-10 absolute top-4 right-0 m-2 p-2 rounded-full bg-red-500 hover:bg-red-400 hover:-translate-y-0.5 transition text-white cursor-pointer flex items-center justify-center" onclick="document.getElementById('finalizarCompraUm').classList.add('hidden');">
+      <i class="bi bi-x-lg"></i>
+    </button> 
+
+    <div class="p-2 mt-4 mb-6 HEISEMBERG border rounded-lg bg-black text-green-200 border-green-600 h-full">
+      <div class="flex items-center justify-center mb-2">
+        <h1 class=" HEISEMBERG font-bold text-white">Finalização de Venda 1/2</h1>
+      </div>
+      <div class="flex h-full ">
+        <!-- Inputs -->
+        <div class="flex flex-col w-1/2 space-y-2 2xl:space-y-6">
+          <div class="">
+            <label for="metodoPagamento" class="block 2xl:text-lg font-medium text-flexy-green-300">Metodo Pagamento:</label>
+            <select id="metodoPagamento" class="p-2 2xl:p-4 w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block ">
+              <option disabled>Pagamento</option>
+              <option value="PIX">Pix</option>
+              <option value="CARTAO">Cartão</option>
+              <option value="DINHEIRO">Dinheiro</option>
+              <option value="COD">Código</option>
+            </select>
+          </div>
+
+         <div class="">
+            <label class="block 2xl:text-lg font-medium text-flexy-green-300">Valor Total da Venda: </label>
+            <input id="valorTotal" class="2xl:text-lg p-2 2xl:p-4 w-full rounded-lg bg-flexy-200 font-bold text-green-500" value="R$ 0.00" disabled >
+          </div>
+
+          <div class=""> 
+            <label class="block 2xl:text-lg font-medium text-flexy-green-300">Valor a Pagar:</label>
+            <input type="text" id="valorApagar" class="2xl:text-lg p-2 2xl:p-4 w-full  rounded-lg bg-flexy-200 font-bold text-green-500" value="" >
+          </div>
+
+          <div class="">
+            <button id="adicionar-pagamento" class="p-2 2xl:p-4 border-2 border-flexy-green-300 hover:bg-flexy-green-300 hover:text-flexy-200 delay-75 rounded-md transition-all w-full text-center my-auto font-semibold ">Adicionar Pagamento</button>    
+          </div>
+
+         </div>
+
+        <!-- Resumo de pagamento -->
+        <div class="flex flex-col w-1/2 ml-4 h-full justify-between mr-4">
+          <div class="">
+            <h3 class="text-white 2xl:text-lg mb-2">Resumo de Pagamento:</h3>
+            <hr>
+            <ul id="resumo-pagamento" class="text-white  text-xs 2xl:text-lg">
+            </ul>
+          </div>
+          <div class="p-2 md:p-6 mb-32 md:mb-10">
+            <input id="extornoCodigo" class="hidden" type="text">
+            <input id="codDesconto" class="hidden" type="text">
+          </div>
+          <div class=" relative bottom-10 2xl:bottom-16  ">
+            <label class="block mb-2 2xl:text-lg font-medium text-flexy-green-300 mt-2">Troco:</label>
+            <input type="text" id="troco" class="2xl:text-lg w-full p-2 2xl:p-4 rounded-lg bg-flexy-200 font-bold text-green-500 disabled:text-gray-500" value="R$0.00" disabled >
+            <button id="botaoConfirmarPagamentos" class="mt-2 p-2 md:p-4 box-border bg-green-500 text-white rounded w-full hover:bg-flexy-green-400 duration-150 hover:text-flexy-200 HEISEMBERG font-semibold disabled:bg-gray-600 disabled:text-gray-900" disabled>Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

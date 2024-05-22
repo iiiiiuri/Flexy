@@ -1,0 +1,54 @@
+
+<table id="table" class="min-w-full bg-flexy-200 shadow-md ">
+  <thead class="hidden sm:table-header-group">
+    <tr class="bg-gray-800 text-center text-white text-[1vw] 2xl:text-lg">
+      <th>COD</th>
+      <th>PRODUTO</th>
+      <th>COR</th>
+      <th>TAMANHOS</th>
+      <th>CATEGORIA</th>
+      <th>SUBCATEGORIA</th>
+      <th>VALOR</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for produto in produtos %}
+      {% if produto.estoque > 0 %}
+        <tr class="text-white flex flex-col sm:table-row {% if produto.estoque <= 1 %}bg-red-600{% endif %}">
+          <td class="border-flexy-100 border text-md p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+            <span class="sm:hidden">COD: </span>{{ produto.codigo }}
+          </td>
+          <td class="border-flexy-100 border text-md p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+            <span class="sm:hidden">PRODUTO: </span>{{ produto.nome }}
+          </td>
+          <td class="border-flexy-100 border text-md p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+            <span class="sm:hidden">COR: </span>{{ produto.cor }}
+          </td>
+          <td class="border-flexy-100 border text-md p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+            <span class="sm:hidden">TAMANHOS: </span>{{ produto.tamanho }}
+          </td>
+          <td class="border-flexy-100 border text-md p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+            <span class="sm:hidden">CATEGORIA: </span>{{ produto.categoria }}
+          <td class="border-flexy-100 border text-md p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+              <span class="sm:hidden">SUBCATEGORIA: </span>{{ produto.subcategoria }}
+          </td>
+          <td class="border-flexy-100 border text-md p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw]">
+            <span class="sm:hidden">VALOR: </span>R$ {{ produto.preco }}
+          </td>
+          <td class="border-flexy-100 border text-md p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw] bg-flexy-green-400 hover:bg-flexy-green-300 cursor-pointer add-to-cart" data-cod="{{ produto.codigo }}" data-url="{% url 'resumoCompra' produto.codigo %}">
+            <button class="w-full h-full text-white font-semibold">
+              <i class="bi bi-plus-lg"></i>
+            </button> 
+          </td>
+          <td class="border-flexy-100 border text-md p-1 md:text-[0.82vw] md:p-3 2xl:p-[0.7vw] bg-red-700 hover:bg-red-600 cursor-pointer remove-from-cart" data-cod="{{ produto.codigo }}" data-url="{% url 'removeCompra' produto.codigo %}">
+            <button class="w-full h-full text-white font-semibold">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+

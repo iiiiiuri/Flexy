@@ -1,0 +1,11 @@
+codigo,nome,cor,categoria,subcategoria,preco,tamanho,estoque
+001,Vestido floral vermelho,Vermelho,Vestuário,Vestido,59.99,P,10
+002,Blusa listrada preta e branca,Preto e Branco,Vestuário,Blusa,29.99,P,15
+003,Calça jeans skinny,Jeans,Vestuário,Calça,39.99,36,20
+004,Blusa de renda branca,Branco,Vestuário,Blusa,34.99,P,12
+005,Shorts jeans destroyed,Jeans,Vestuário,Short,24.99,36,18
+006,Blusa ombro a ombro azul,Azul,Vestuário,Blusa,27.99,P,14
+007,Macacão pantacourt floral,Floral,Vestuário,Macacão,49.99,P,8
+008,Saia lápis preta,Preto,Vestuário,Saia,32.99,36,16
+009,Regata básica rosa,Rosa,Vestuário,Regata,19.99,P,20
+010,Jaqueta jeans cropped,Jeans,Vestuário,Jaqueta,44.99,P,10

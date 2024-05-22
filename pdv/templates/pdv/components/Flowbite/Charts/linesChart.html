@@ -1,0 +1,137 @@
+{% load components %}
+
+<div class="w-full rounded-md shadow bg-flexy-100  h-full">
+    <div class="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
+        <div class="flex justify-between items-start w-full">
+            <div class="flex-col items-center">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-md bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
+                        <i class="bi bi-cart-check text-2xl text-gray-200"></i>
+                    </div>
+                    {% title 'Total Vendas ' %} 
+                    <span class="text-lg font-bold ml-2 text-green-300"> R$ {{totalVendasHoje}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="labels-chart"></div>
+    <div id="no-data-lines" class="w-full p-6 text-center hidden">
+        <i class="bi bi-exclamation-triangle-fill text-2xl text-gray-500"></i>
+        <p class="text-gray-400">Nenhuma venda realizada</p>
+    </div>
+</div>
+
+<script>
+const options = {
+    xaxis: {
+      show: true,
+      categories: [],
+      labels: {
+        show: true,
+        style: {
+          fontFamily: "Inter, sans-serif",
+          cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+        }
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+    },
+    yaxis: {
+      show: true,
+      labels: {
+        offsetX: -10, // Ajuste este valor conforme necessário
+        show: true,
+        style: {
+          fontFamily: "Inter, sans-serif",
+          cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+        },
+        formatter: function (value) {
+          return 'R$ ' + value;
+        }
+      }
+    },
+    series: [
+      {
+        name: "Vendas por Hora",
+        data: [],
+        color: "#3CFF3C",
+      },
+    ],
+    chart: {
+      sparkline: {
+        enabled: false
+      },
+      height: "80%",
+      width: "100%",
+      type: "area",
+      fontFamily: "Inter, sans-serif",
+      dropShadow: {
+        enabled: false,
+      },
+      toolbar: {
+        show: false,
+      },
+    },
+    responsive: [{
+        breakpoint: 640,
+        options: {
+            chart: {
+                height: 350,
+            },
+        },
+    }],
+    tooltip: {
+      enabled: true,
+      x: {
+        show: false,
+      },
+    },
+    fill: {
+      type: "gradient",
+      gradient: {
+        opacityFrom: 0.55,
+        opacityTo: 0,
+        shade: "#1C64F2",
+        gradientToColors: ["#1C64F2"],
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      width: 6,
+    },
+    legend: {
+      show: false
+    },
+    grid: {
+      show: true,
+    },
+}
+
+fetch('/analise/getVendasPerHour')
+  .then(response => response.json())
+  .then(data => {
+    if (!data.vendas || data.vendas.length === 0) {
+        console.log('No data');  // Adicionado para diagnóstico
+        document.getElementById('labels-chart').classList.add('hidden');
+        document.getElementById('no-data-lines').classList.remove('hidden');
+    } else {
+        const horas = data.vendas.map(venda => venda.hora);
+        const valor_total = data.vendas.map(venda => venda.valor_total);
+
+        options.xaxis.categories = horas;
+        options.series[0].data = valor_total;
+
+        if (document.getElementById("labels-chart") && typeof ApexCharts !== 'undefined') {
+          const chart = new ApexCharts(document.getElementById("labels-chart"), options);
+          chart.render();
+        }
+    }
+  });
+</script>

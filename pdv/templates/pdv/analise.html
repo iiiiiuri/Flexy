@@ -1,0 +1,41 @@
+{% extends 'pdv/layout.html' %}
+{% block flowbitGraph %}
+{% load static %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'css/output.css' %}">
+{% endblock flowbitGraph %}
+{% load components %}
+{% load static %}
+
+{% block titulo %}Análise de Vendas{% endblock titulo %}
+
+{% block corpo %}
+<section class="h-screen flex justify-center">
+    <div class="h-4/5 bg-flexy-200 md:w-9/12 rounded-md mt-2 shadow-lg w-11/12 overflow-y-auto md:overflow-hidden">
+        <div class="p-2">
+            {% title 'Análise de Vendas'%}
+        </div>
+
+        <div class="w-full flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 p-2 md:h-2/4">
+            <div class="w-full md:w-4/6">
+                {% bar %}
+            </div> 
+            <div class="w-full md:w-2/6">
+                {% pie %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 p-2 md:h-2/5">
+            <div class="w-full">
+                {% line request %}
+            </div> 
+            <div class="w-full md:w-2/6">
+                {% horizontal %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock corpo %}
+
+{% block scripts %}
+{% endblock scripts %}
